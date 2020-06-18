@@ -1,0 +1,40 @@
+<%= form_tag multiple_actions_users_url, method: :get do %>
+<%= submit_tag "Unblock Selected", :class => 'btn mb-3 btn-success toolbar' %>
+<%= submit_tag "Block Selected", :class => 'btn mb-3 btn-warning toolbar' %>
+<%= submit_tag "Delete Selected", :class => 'btn mb-3 btn-danger toolbar' %>
+<table class="footable table table-bordered toggle-arrow-tiny" data-page-size="31" data-filter=#filter>
+<thead>
+  <tr>
+    <th data-sort-ignore="true"><input type="checkbox" id="select-all"> Select All</input></th>
+    <th>User ID</th>
+    <th>User Name</th>
+    <th>Email</th>
+    <th>Last login at</th>
+    <th>Status</th>
+  </tr>
+</thead>
+
+<tbody>
+  <% @users.each do |item| %>
+  <tr>
+    <td><%= check_box_tag "user_id[]", item.id, false, class: 'selectable' %></td>
+    <td><%= item.id %></td>
+    <td><%= item.name %></td>
+    <td><%= item.email %></td>
+    <td><%= item.last_login_at.to_s %></td>
+    <% if item.block %>
+      <td>Blocked</td>
+    <% else %>
+      <td>Active</td>
+    <% end %>
+  </tr>
+<% end %>
+</tbody>
+<tfoot>
+<tr>
+    <td colspan="12">
+ <ul class="pagination pull-right"></ul>
+    </td>
+</tr>
+</tfoot>
+<% end %>
